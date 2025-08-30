@@ -10,8 +10,8 @@ echo "   📊 System and Network Information"
 echo "============================================"
 
 # Hostname and OS
-echo "🔹 Hostname       : $(hostname)"
-echo "🔹 OS Version     : $(cat /etc/os-release | grep PRETTY_NAME | cut -d= -f2 | tr -d '\"')"
+echo "🔹 Hostname       : `hostname`"
+echo "🔹 OS Version     : $(cat /etc/os-release | grep PRETTY_NAME )"
 echo "🔹 Kernel Version : $(uname -r)"
 echo "🔹 Architecture   : $(uname -m)"
 echo "🔹 Uptime         : $(uptime -p)"
