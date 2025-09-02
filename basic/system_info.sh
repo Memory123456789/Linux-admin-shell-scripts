@@ -17,11 +17,10 @@ echo "👤 Logged-in Users: $(who | wc -l)"
 who
 
 # IP and Network Info
-echo "
-      Private IP Address : `hostname -I`
-      Public IP Address  :  `curl -s ifconfig.me`
-      Default Gateway    :  `ip route | grep default` 
-      DNS Servers        :  `cat /etc/resolv.conf | grep nameserver`"
+echo "Private IP Address : `hostname -I`
+Public IP Address  :  `curl -s ifconfig.me`
+Default Gateway    :  `ip route | grep default` 
+DNS Servers        :  `cat /etc/resolv.conf | grep nameserver`"
 
 # System Load
 echo "⚙️  CPU Load      : $(uptime)"
