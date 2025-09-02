@@ -7,7 +7,7 @@
 
 # Hostname and OS
 echo "🔹 Hostname       : `hostname`"
-echo "🔹 OS Version     : $(cat /etc/os-release | grep PRETTY_NAME )"
+echo "🔹 OS Version     : $NAME $VERSION "
 echo "🔹 Kernel Version : $(uname -r)"
 echo "🔹 Uptime         : $(uptime -p)"
 
@@ -19,7 +19,7 @@ who
 echo "Private IP Address : `hostname -I`
       Public IP Address  :  `curl -s ifconfig.me`
       Default Gateway    :  `ip route | grep default` 
-      DNS Servers        :  `grep "nameserver" /etc/resoln.conf`"
+      DNS Servers        :  `cat /etc/resoln.conf | grep nameserver`"
 
 # System Load
 echo "⚙️  CPU Load      : $(uptime)"
