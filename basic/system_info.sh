@@ -4,9 +4,10 @@
 # Description : Display system and network information
 # Author      : Leelakrishna
 # ============================================
-
+echo "------------System-information-------------------"
 # Hostname and OS
-echo "🔹 Hostname       : `hostname`"
+source /etc/os-release
+echo "🔹 Hostname       : $NAME "
 echo "🔹 OS Version     : $NAME $VERSION "
 echo "🔹 Kernel Version : $(uname -r)"
 echo "🔹 Uptime         : $(uptime -p)"
