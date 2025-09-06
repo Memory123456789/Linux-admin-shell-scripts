@@ -1,0 +1,74 @@
+#!/bin/bash
+#-----------------------------------------
+# Author: Leelakrishna
+# Title : 
+# DEscription : Listing/Moving/Deletion/Zipping the old files in a directory
+#------------------------------------------
+
+# Ask user for inputs
+echo "Enter directory path: "
+read DIR
+
+echo "Enter number of days old files to find: "
+read DAYS
+
+echo "Enter file extension (e.g., log, txt, sh, conf): "
+read EXT
+
+# Validate directory
+if [ ! -d "$DIR" ]; then
+    echo "Error: $DIR is not a valid directory"
+    exit 1
+fi
+
+# Find old files of given type
+FILES=$(find "$DIR" -type f -name "*.$EXT" -mtime +"$DAYS")
+
+if [ -z "$FILES" ]; then
+    echo "No .$EXT files older than $DAYS days found in $DIR"
+    exit 0
+fi
+
+
+# Menu for operation
+echo "Choose an operation:"
+echo "1. List files"
+echo "2. Move files"
+echo "3. Delete files"
+echo "4. Zip files"
+echo "Enter choice [1-4]: "
+read CHOICE
+
+case $CHOICE in
+    1)
+        echo "Listing .$EXT files older than $DAYS days in $DIR:"
+        echo "$FILES"
+        ;;
+    2)
+        echo "Enter target directory to move files: "
+        read TARGET_DIR
+        mkdir -p "$TARGET_DIR"
+        echo "Moving files to $TARGET_DIR ..."
+        echo "$FILES" | xargs -d '\n' -I {} mv "{}" "$TARGET_DIR"
+        ;;
+    3)
+        echo "Are you sure you want to delete these files? (y/n): "
+        read CONFIRM
+        if [[ "$CONFIRM" == "y" || "$CONFIRM" == "Y" ]]; then
+            echo "$FILES" | xargs -d '\n' rm -f
+            echo "Files deleted."
+        else
+            echo "Delete cancelled."
+        fi
+        ;;
+    4)
+        ARCHIVE_NAME="${EXT}_files_$(date +%Y%m%d%H%M%S).tar.gz"
+        echo "Zipping files into $ARCHIVE_NAME ..."
+        echo "$FILES" | xargs -d '\n' tar -czf "$ARCHIVE_NAME"
+        echo "Archive created: $ARCHIVE_NAME"
+        ;;
+    *)
+        echo "Invalid choice. Please select 1-4."
+        exit 2
+        ;;
+esac
